@@ -274,45 +274,6 @@
 
 
 
-
-**Hardware**
-- repeaters (joins two cables and regenerates signal strength)
-- hub
-	- for star topology
-	- just forwards/broadcasts/no filtering
-	- collision possible
-- bridges
-	- used to connect two topologies(LANs)
-	- forwards, acc. to filtering mac addr. as this work in data link layer
-	- types
-		- static
-			- maintable table of mac & port of bridge
-		- dynamic
-			- if entry not in table
-				- saves source mac & port
-				- broadcasts packet to all ports
-				- now, recieving mac responses
-				- now, bridge saves destination mac
-	- collision 
-		- no collision
-			- store and forward technique	
-	- solves loop by using min spanning tree
-
-
-
-- routers
-	- used in wan (physical, datalink(mac addr), network layer(ip addr))
-	- has routing table to check, forward to address, if !found, flood all ports
-	- no collision, uses store and forward method
-
-
-
-
-
-
-
-
-
 **Switching**
 
 - switched networks
