@@ -18,5 +18,5 @@ Instruction for editing notes
         - ![import.png](./_resources/Screenshot_2021-05-08_21-01-04.png)
 
 - with Github
-    - don't do that
+    - not really efficient
 
