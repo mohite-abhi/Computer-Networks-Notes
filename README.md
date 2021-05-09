@@ -1,7 +1,7 @@
 # Computer-Networks-Notes
 Contains notes of Data Communication and Data Networking, prepared for semester exams of B.Tech. 
 ```
-Note : pull requests are most wellcome.
+Note : pull requests are most welcome.
 ```
 
 **Source of Learning : **
