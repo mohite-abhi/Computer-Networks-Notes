@@ -1,4 +1,4 @@
-6. Session Layer
+# 6. Session Layer
 
 **Introduction**
 - responsibility

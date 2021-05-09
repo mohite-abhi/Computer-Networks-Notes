@@ -1,4 +1,4 @@
-3. Data link Layer
+# 3. Data link Layer
 
 ![16d8005abf487abc45800b57c2f69097.png](../_resources/fd54e7ec013a491c8c1ce1130ada2fa0.png)**Introduction**
 - Responsibility

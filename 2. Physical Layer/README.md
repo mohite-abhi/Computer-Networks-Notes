@@ -1,4 +1,4 @@
-2. Physical Layer
+# 2. Physical Layer
 
 **Introduction**
 - the last layer that adds functionality
