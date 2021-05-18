@@ -7,7 +7,7 @@
 	- sender sends data, reciever recieves (both are at diff. machines) through channel
 	- but, reciever need to understand data, for which we need protocols
 
--  functionality of two way communication (more than 70)
+-  functionality / protocols of two way communication (more than 70)
 	-  mandatory functionalities
 		-  error control
 		-  flow control

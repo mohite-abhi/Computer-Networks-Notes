@@ -8,7 +8,7 @@
 	- topology (mesh, hub, bus, ring)
 	- hardware(repeaters, hubs, cables, waves, connectors etc)
 	- encoding	
-		- analog to digital etc.
+		- analog to digital, digital to digital etc.
 	- transmission mode (simplex, half duplex, full duplex)
 	- multiplexing 
 		- converting n channels to fit one physical medium
@@ -24,7 +24,7 @@
 - types
 	- Mesh
 		- point to point communication (lan)
-		- every device connected
+		- every device connected to every other
 		- ports : hole to connect incoming wire
 		- highest reliability
 		- high security : high as no third device in b/w
@@ -35,7 +35,7 @@
 		- there is a central device(hub, multiport device)
 			- devices connected thru hub
 		- cable : n
-		- reliability is low : single point of failure, bus
+		- reliability is low : single point of failure, hub
 		- cost : lower than mesh
 		- security : hub doesn't rat
 	- Bus 
@@ -50,9 +50,9 @@
 		- multipoint
 			- so collision can take place
 	- Ring 
-		- joining ends of but topology
+		- joining ends of bus topology
 		- uses token	
-			- when toke recieved by a device, it can transmit toke and/else pass it to next device
+			- when toke recieved by a device, it can transmit data and/else pass it to next device
 	- Hybrid
 		- yes
 
@@ -66,9 +66,9 @@
 
 - distirbance in signal
 	- Attenuation (loss in amplitude)
-		```
-		dB = 10lob<sub>10</sub>(P2/P1)   //although -ve, atten. is +ve
-		```
+		
+		- dB = 10lob<sub>10</sub>(P2/P1) //value -ve, atten. is +ve
+		
 		- example
 			- ![5bcceb5b0bfaeb04e89f14828b8ede33.png](../_resources/8dbf741d4f9343f0acc5fbcc32593ba2.png)
 	- Distortion(bad shape of signal)
@@ -77,6 +77,8 @@
 		```
 		SNR = (ave. signal power) / (ave. noise power) // greater the better
 		```
+		- SNR<sub>db</sub> = 10 log<sub>10</sub>SNR
+		
 		
 
 - Data Rate Limits
@@ -86,7 +88,7 @@
 			- example
 				- ![f4ea9baa662e31929ae6ecbf718b6eac.png](../_resources/ffb68a9551fd4bf3ad3e3c39879877a5.png)
 	- Noisy Channel (Shannon capacity)
-		- capacity = bandwidth * log<sup>2</sup>(1+SNR)
+		- capacity = bandwidth * log<sub>2</sub>(1+SNR)
 			- example
 				- ![38fd874c816eea569702c6a421824231.png](../_resources/1e93faea12ff4508bed693d3c9f8d1d5.png)
 
@@ -127,6 +129,8 @@
 
 
 
+**Encoding Scheme**
+
 - Encoding scheme characters
 	- Baseline wandering (bad)
 		- value is determiined by detecting incoming signal power against the baseline(running ave. of power), if long string of 0's or 1's, then baseline is wandered
@@ -147,7 +151,6 @@
 			- four signal level is difficult to interpret than two
 	- Built in error detection
 	- Immunito to noise
-
 
 
 
@@ -254,7 +257,6 @@
 			- 100BaseT
 				- 100Mbps
 			- connector : RJ45
-		- 
 	- Coaxial cable
 		- 10Base2
 			- 2 means 200m
@@ -293,13 +295,13 @@
 	- dedecated path is made, then contiguous data flows from source to dest.
 	- no headers, we just need ot setup (reserve some bandwidth)
 	- efficiency is less, even if we don't talk still we consume bandwidth
-	- no dela, no hyinderance
+	- no dela, no hinderance
 	- total time = setup time + TT + PT + TearDownTime
 	
 
 
 - Packet Switching
-	- dat is transmitted in packets
+	- data is transmitted in packets
 	- comes under data link and network layer
 	- types
 		- datagram (network layer)
@@ -310,7 +312,7 @@
 		- now, it processes it(finds destination port in routing table) and forwards
 	- delay is there due to store, process
 	- pipeline is used (increases effieiency, decreases delay)
-	- total time = TT(at each switch) + PT = n* TT + PT
+	- total time = TT(at each switch) + PT = n* TT + PT   //n is no. of switches visited
 
 
 
@@ -323,12 +325,16 @@
 	- high overhead due to header of each packet
 	- more packet loss
 	- used in internet
-	- on demand, so cost is less, more efficiency, delay more
+	- on demand, so 
+		- cost is less
+		- more efficiency, 
+		- but delay is more
 
 
 - virtual circuit switching
 	- connection oriented
-		- continuous reserving switches(memory, buffer, cpu) till reaches dest 
+		- 1sp pkt continuous reservs switches(memory, buffer, cpu) till reaches dest
+			- then upcoming follow same path
 	- resernation
 		- ![72918fe9d110196d0646771527731bab.png](../_resources/1809822a471547f1a7180df09c500e8e.png)
 		- ![6fd2e082f6ddf11106505ea79d53b99f.png](../_resources/96b83266f6e84f6da475a2a86e1214e0.png)
