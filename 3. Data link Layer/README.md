@@ -1,6 +1,6 @@
 # 3. Data link Layer
 
-![16d8005abf487abc45800b57c2f69097.png](../_resources/fd54e7ec013a491c8c1ce1130ada2fa0.png)**Introduction**
+**Introduction**
 - Responsibility
 	- takes data from network layer, provides to physical layer, which then sends it
 	- within a network(lan), only data link layer is enough for communication
@@ -38,12 +38,14 @@
 	- keeps copy of sent packet
 	- sends one frame and waits for acknowledgement, so takes lot of time
 		- hence low efficiency
-	- if no ack, sends again from memory
+	- if no ack, after wait, sends again from memory
 	- sender window size = 1
 	- reciever window size = 1
-	- efficiency = 1 / (1 + 2x)  = TT / (TT + 2 * PT)
-		- x = PT/TT
-	- retransmission (on error say) = 1
+	- efficiency = 1 / (1 + 2x)  = Tt / (Tt + 2 * Tp)
+		- x = Tp/Tt
+			- Tt = transmission delay = data / datarate
+			- Tp = propogation delay = dis / time
+	- retransmission (on error) = 1
 	- Avai. Seq. No =  sender window size + reciever window size
 	- examples
 		- ![9522728baf9dd79b5c005e03d08b93d8.png](../_resources/e171c844dfe545b4b1f15f302ed5ae3c.png)
@@ -52,14 +54,15 @@
 
 - Go back N
 	- it is sliding window protocol
-	- we send multiple frames
+	- we send multiple frames 
+		- and then wait for next ack
 	- sender window size = 2<sup>k</sup> - 1
 		- k = no. of bits to represent window 
 		- window slides one or more slots, after valid ack recieved
 	- reciever window size = 1
 		- packets recieved in order
 	- efficiency = (2<sup>k</sup> - 1) * (1 / (1 + 2 * x))
-		- x = PT/TT
+		- x = Tp/Tt
 	- commulative acknoledgement
 		- if 1,2,3 frames send so ack sends 4
 	- retransmission = 2<sup>k</sup> - 1
@@ -71,43 +74,41 @@
 		- Station A needs to send a message consisting of 9 packets to station B using a sliding window (window size 3) and go back n error control strategy. All packets are ready and immediately available for transmission. If every 5th packet that A transmits gets lost (but no ACKs from B ever get lost), then what is the number of packets that A will transmit for sending the message to B?
 			- solution : 
 				```
-				pac1 -> 		//1
-				ack1 <-			//window slides one slot
-				pac2 -> 		//2
-				ack2  <-		//window slides one slot
-				pac3 -> 		//3
-				ack3 <-			//window slides one slot
-				pac4 -> 		//4
-				ack4 <-			//window slides one slot
+				pac1 -> 		//{1}
+				<- ack2 			//window slides one slot
+				pac2 -> 		//{2}
+				<- ack3  		//window slides one slot
+				pac3 -> 		//{3}
+				<- ack4 			//window slides one slot
+				pac4 -> 		//{4}
+				<- ack5 			//window slides one slot
 				
-				pac5 -> X		//5
-				pac6 ->			//1 discarded
-				pac7 ->			//2 discarded
+				pac5 -> X		//{5}
+				pac6 ->			//{6} discarded
+				pac7 ->			//{7} discarded
 				
-				pac5 ->			//3 resent1
-				ack5 <-			//window slides one slot
-				pac6 ->			//4 resent2
-				ack6 <-			//window slides one slot
+				pac5 ->			//{8} resent
+				<- ack6 			//window slides one slot
+				pac6 ->			//{9} resent
+				<- ack7 			//window slides one slot
 				
-				pac7 -> X		//5 resent3
-				pac8 ->			//1 discarded
-				pac9 ->			//2 discarded
+				pac7 -> X		//{10} resent
+				pac8 ->			//{11} discarded
+				pac9 ->			//{12} discarded
 				
-				pac7 ->			//3 resent4
-				ack7 <-			//window slides one slot, creating 1 empty slot
-				pac8 ->			//4 resent5
-				ack8 <-			//window slides one slot, creating 2 empty slots
+				pac7 ->			//{13} resent
+				<- ack8 			//window slides one slot, creating 1 empty slot
+				pac8 ->			//{14} resent5
+				<- ack9 			//window slides one slot, creating 2 empty slots
 				
-				pac9 -> X		//5 resent 6
+				pac9 -> X		//{15} resent
 				//wait
 				//wait
-				pac9 ->			//1 resent 7
-				ack9			//window slides to become empty
+				pac9 ->			//{16} resent
+				<- ack10			//window slides to become empty
 				
 				
-				//total frames = 9 
-				//total resent = 7
-				//total transmissino = 9 + 7 = 16
+				//total frames sent = 16
 				
 				```
 				
@@ -117,8 +118,8 @@
 				Tp = 400ms
 				Tt = 100 * 8 / 20 * 1000 = 40 ms
 				x = Tp/Tt = 10
-				efficiency = N * (1/(1+2*x)) = 0.476
-				data rate = 20 kbps * efficiency = 9.52 kbps 
+				efficiency = N * (1/(1+2*x)) = 0.0476
+				data rate = 20 kbps * efficiency = 952 bps 
 				```
 
 - Select Repeat
@@ -131,7 +132,7 @@
 	- efficiency = (2<sup>k - 1</sup>) * (1 / (1 + 2 * x)) 
 		- x = PT/TT
 	- retransmission = 1
-	- uses commulative, independent and negative(for error) ack
+	- uses commulative, independent and negative ack (for error) 
 	- searching and sorting is used, so a bit complex
 	- example
 		- ![78eaa3ab0ad30ed6767cad4121efba5b.png](../_resources/63c43f0549ad406a9f313e241afd98d6.png)
@@ -143,7 +144,7 @@
 
 - HDLC
 	- what
-		- high level link control
+		- high-level data link control
 		- bit oriented protocol (views framess as sequence of bits)
 		- over point to point and multipoint
 			- which uses above arq techniques
@@ -205,7 +206,7 @@
 	- redundant bit = 1
 	- even parity
 		- keep no. of 1 even
-		- if (even no.) bit error
+		- if there is bit error
 		- it turns out odd
 		- so we detect there is error
 		- tho, if (even) bits change, can't detect
@@ -218,10 +219,10 @@
 - CRC (cyclic redundancy check)
 	- can detect
 		- burst error of length <= to polynomial degree
-	- we have a polynomial divisor say x<sup>4</sup> + x<sup>3</sup> + 1
+	- we have a polynomial divisor say x<sup>4</sup> + x<sup>3</sup> + 0 x<sup>2</sup>+ 0 x + 1
 		- we convert it to binary as : 11001
-	- now, to send messege (len = m)
-		- we add power no. of zeroes, of lenDivisor - 1 no of zeroes at end of message
+	- now, to send messege of len = m
+		- we append 0s eq to max power(4 here) at end of message
 		- then we xor divide this with our divisor binary, 
 		- we append last 4 bits of remainder to message and send (redundant, r = 4)
 	- to recieve and detect error
@@ -250,8 +251,8 @@
 	- so our code d0 d1 d2 d3 becomes, p0 p1 d0 p2 d1 d2 d3
 	- calculating parity bit 
 		- p0 = d0 ^ d1 ^ d3 (at 1st pos, so pick 1 leave 1 ..)
-		- p1 = d0 ^ d2 ^ d3 (at 2nd pos, so pick 2 leave 2 ..)
-		- p2 = d1 ^ d2 ^ d3 (at 4th pos, so pick 4 leave 4 ..)
+		- p1 = d0 ^ d2 ^ d3 (at 2nd pos, so pick 2, 3 leave 4, 5..)
+		- p2 = d1 ^ d2 ^ d3 (at 4th pos, so pick 4, 5, 6, 7 leave 8, 9, 10, 11 ..)
 
 
 
@@ -280,7 +281,7 @@
 
 
 
-- data link
+- data link layer
 	- local link control (error and flow control)
 	- medium access control (mac)
 	
@@ -293,11 +294,11 @@
 		- aloha (pure / slotted)
 		- CSMA
 		- CSMA/CA, CSMA/CD
-	- control access
+	- control access (first decide who is going to send)
 		- reservation
 		- polling
 		- token passing
-	- channelization protocols
+	- channelization protocols (all send without collision)
 		- FDMA
 		- TDMA
 		- CDMA
@@ -314,15 +315,18 @@
 	- ack is send once data recieved, 
 		- if data collide sender waits, no ack so retransmission
 			- retransmission takes place after Tp * random(0..2<sup>KthRetry</sup>)
-	- lan based
-		- so no propogation time, only transmission time, fixed for all
+	- used in lan based networks
+		- so no propogation time(almost 0), only transmission time, fixed for all
 	- vulnerable time
 		- is 2 * Transmission Time
-		- during A is transmitting, if B starts transmitting then A & B collide
+			- during A is transmitting, if B starts transmitting then A & B collide
+			- if C is transmitting, A starts then they collide
+			- so no device should have been transmitting for 1 Tt before
+			- and no should transmit for 1 Tt after
 	- efficiency/throughput
 		- G * e <sup>-2G</sup>
 			- G = no. of packets trying to transmit at one Tt slot
-			- is max when G = 1/2, and efficiency is 0.184
+			- is max when G = 1/2, efficiency is 0.184
 	- ![377dea1c220d3be6a08ca32938eb8d2f.png](../_resources/b9263c80c39e461b9457ff7f4c11cf55.png)
 	- example
 		- ![5dde2d17b942f827f80979a0262cc822.png](../_resources/e6ccb8a1a9c34c3ba9d2f69114ad0a61.png)
@@ -352,11 +356,11 @@
 
 
 - Carrier Sense Multiple Access (CSMA)
-	- we sense the tap of channel if any transmission is there
+	- we sense the channel through tap, if any transmission is there
 	- types
 		- 1 - prsistant
 			- device keep sensing the tap, if no transmission, and want to send, then send
-			- but if multple sense free they all start transmission, then collide
+			- but if multple devices sense free, they all start transmission, then collide
 			- ethernet uses this
 		- 0- prsistant
 			- if want to send, senses tap, if busy, waits random time
@@ -375,8 +379,12 @@
 
 - CSMA / CD (collision detection in case of wired)
 	- can't send ack, as collision will further increase
-	- if device transmitting, and collides just before Tp, after Tp more will get a collision signal(double energy), and will stop
+	- detection method
+		- packet will travel Tp time and just before reaching destination, it collides
+		- so now the collision signals goes all the way back in Tp seconds 
+		- now as the energy in the line is more than sent energy, so collision is detected
 	- Tt > 2Tp
+		- it takes upto 2 Tp to detect collision, so upto that point we need to be still sending to detect incoming signal
 	- throughput	
 		- 1 / (1 + 6.44x)
 			- x = Tp / Tt
@@ -393,7 +401,7 @@
 - CSMA / CA
 	- collision avaoidance
 	- used in wlan(wifi)
-	- can'e detect double energy as energy is lost so can't detect
+	- can't detect double energy as energy is lost in air, so can't detect with CSMA / CD
 	- ![bd276e1ed4e0f670f57054988b059824.png](../_resources/97eafcfba23c41458304c53bc6b76db0.png)
 
 
@@ -431,7 +439,7 @@
 	- a controller system grants access to devices, one by one
 	- poll signal
 		- controller sends poll to diff dev.
-		- if dev want to send, it sends & recieves ack
+		- if device want to send, it sends & recieves ack
 		- if dont want to send, device returns poll reject(NAK)
 	- sel signal
 		- if controller want to send data, sends sel
@@ -460,8 +468,8 @@
 - CDMA	
 	- one channel carries all transmission simultaneously
 	- working
-		- each station is assigned a code, a sequence no. called chips
-			- sequence has N elements, N = no. of stations
+		- each station is assigned a code, sequence no. called chips
+			- each sequence no. has N elements, N = no. of stations
 			- if we dot product diff. sequences and add, we get 0
 		- if station 
 			- wants to send 0, it is encoded as -1
@@ -480,9 +488,6 @@
 
 
 
-- IEEE Standerd
-	- project 802 was started to enable intercommunication among equipment from variety of manufacturers
-		- a way of specifying functions of physical layer and data link layer of major LAN protocols
 
 
 
@@ -490,8 +495,15 @@
 
 
 **Ethernet**
+- IEEE Standerd
+	- project 802 was started to enable intercommunication among equipment from variety of manufacturers
+		- a way of specifying functions of physical layer and data link layer of major LAN protocols
 - what
-	- ethernet is a data link layer protocol, based on LAN, uses csma/cd, bus topology used, bitrate 1 mbps to 400 gbps
+	- ethernet is a data link layer protocol
+		- based on LAN
+		- uses csma/cd
+		- uses bus topology  
+		- bitrate 1 mbps to 400 gbps
 - ethernet evolution
 	- standard (10 mbps)
 	- fast (100 mbps)
@@ -518,6 +530,7 @@
 		- data
 			- atleast 46 byte, so that csma/cd can detect collision
 				- min. size of frame needs to be (46 + 18) 64 B
+				- 18 B is rest of the data
 			- max can be 1500 B 
 				- max size of frame (1500 + 18) 1518 B
 		- CRC (4B)
@@ -535,6 +548,8 @@
 
 	- example
 		- ![bd7f4c53dcd417977024174abbac26c5.png](../_resources/2eb07c0b0770431ab8fa85ad3d16fae3.png)
+		- a frame is there and its source address has first byte as FF, what is wrong with it?
+			- a source address can never be multicast, because it is always unicast (originates from a single source)
 
 
 
@@ -571,7 +586,7 @@
 	- 802.11 suitable for ad-hoc configuration, that may or may not be able to connect to all other nodes
 		- ![4943cdfca334e6bacb672fb5ae59f178.png](../_resources/c0343a0597204034bc94830bc3e27369.png)
 	- scanning
-		- nodes select access point with this
+		- nodes (device) select access point with this
 		- a mobile node sends a probe frame
 		- all APs within reach reply with probe response frame
 		- node selects one of access point and sends that AP an association request frame
@@ -600,10 +615,10 @@
 	- ![c4a6b0b1807aa15a7259990438fa58ae.png](../_resources/624ffe7b23c7460ca26426944c5144ea.png)
 	- ![f03a4777b98d83a884499cad74ab821c.png](../_resources/98d5f0a3bfb142d3837ea700bdc24bb9.png)
 - hidden terminal problem
-	- when A & B share AP1, B & C share AP2, now they both send frame not seeing each other, and collision occurs
+	- when A & B share AP1, B & C share AP2, now they both(A & C) send frame to B not seeing each other, and collision occurs
 	- solution 
-		- use cts and rts (maca algo)
-			- sender sensd rts(request to send, len of data, goes to all nodes, to hold medium) if want to send data
+		- use cts and rts (mac algo)
+			- sender sensd rts (request to send) & len of data, it goes to all nodes, to hold medium
 			- reciever replies with cts(clear to send)
 			- if any node sees cts, won't transmit
 			- if node sees rts only, will know it wont effect so can transmit

@@ -104,7 +104,7 @@
 			- propogation time : dis/time
 			- transmission time: msg size/bandwidth
 	- Bandwidth Delay Product
-		- the no. of bits sent, after which first bit recieved
+		- the no. of bits that can fit a channel together, bandwidth * delay
 
 
 
@@ -167,6 +167,7 @@
 		- NRZ-L (r=1)
 			- -1 V for 1, 1 V for 0
 			- problems as NRZ
+			- data rate = 2 * bandwidth
 		- NRZ-I (r=1)
 			- if next bit 1, signal change
 			- if next bit is 0 signal not change 
@@ -176,7 +177,8 @@
 			- problem
 				- more bandwidth, more complex
 		- BiPhase
-			- Manchester 
+			- Manchester
+				- data rate = 1 * bandwidth 
 			- differential manchester
 			- ![2ef8f18dba86477fba11721745e7bdff.png](../_resources/4038b047bf1543288707baf51c866a18.png)
 	- Bipolar (r=1)
@@ -187,13 +189,15 @@
 	- Multilevel
 		- 2B/1Q
 			- ![79c1321bf234aee087e93d15766f01d0.png](../_resources/23bb6fcac3604cbda9d75f7ed6e40d82.png)
-		- 8B/6Q
+		- data rate = 4 * bandwidth
+		- 8B/6Q (fixed coding)
 			- ![bca6780d8318d21283816fc7bfd9bc60.png](../_resources/10baa794a90c4d478eaacb2584af1d73.png)
-		- 4d-PAMS
+		- 4d-PAMS (fixed coding)
 			- ![34d1a30ddd6f3ec15bfcc7599dad18d3.png](../_resources/fe12cb8aade745839ec2cf971b4d07f0.png)
 	- Multitransition
 		- MLT-3
 			- ![a805d6b749b9609d4472aa4b2a339fc6.png](../_resources/0b44819b6382493fb6fb7713a62b20b8.png)
+		- data rate = 3 * bandwidth
 
 
 
@@ -202,6 +206,25 @@
 
 - Block Encoding Scheme
 	- known as mB/nB, replaces m-bit group with n--bit group, we have some extra codes, which we use for control sequence like set, idle, reset etc
+	- 4B/5B
+		```
+		0000 -> 11110
+		0001 -> 01001
+		0010 -> 10100
+		0011 -> 10101
+		0100 -> 01010
+		0101 -> 01011
+		0110 -> 01110
+		0111 -> 01111
+		1000 -> 10010
+		1001 -> 10011
+		1010 -> 10110
+		1011 -> 10111
+		1100 -> 11010
+		1101 -> 11011
+		1110 -> 11100
+		1111 -> 11101
+		```
 
 
 
