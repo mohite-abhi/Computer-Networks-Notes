@@ -227,7 +227,7 @@
 	- we have a polynomial divisor say x<sup>4</sup> + x<sup>3</sup> + 0 x<sup>2</sup>+ 0 x + 1
 		- we convert it to binary as : 11001
 	- now, to send messege of len = m
-		- we append 0s eq to max power(4 here) at end of message
+		- we append 0s equal to max power(4 here) at end of message
 		- then we xor divide this with our divisor binary, 
 		- we append last 4 bits of remainder to message and send (redundant, r = 4)
 	- to recieve and detect error
@@ -340,6 +340,8 @@
 		- G * e <sup>-2G</sup>
 			- G = no. of packets trying to transmit at one Tt slot
 			- is max when G = 1/2, efficiency is 0.184
+
+			- G = no. of stations * no. of frames per station per second * transmission time of a frame
 	- ![377dea1c220d3be6a08ca32938eb8d2f.png](../_resources/b9263c80c39e461b9457ff7f4c11cf55.png)
 	- example
 		- ![5dde2d17b942f827f80979a0262cc822.png](../_resources/e6ccb8a1a9c34c3ba9d2f69114ad0a61.png)
