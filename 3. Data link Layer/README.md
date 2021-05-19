@@ -197,7 +197,12 @@
 		- hamming code
 
 
-
+- Hamming distance
+	- the no. of 1 in xor of two binaries
+	- for s bit error detection
+		- min. hamming dis = s + 1
+	- for t bit error correction
+		- min. hamming dis = 2t + 1
 
 
 
@@ -248,11 +253,19 @@
 			- we can detect 2 bit, correct 1 bit
 	- we put parity at 2<sup>n</sup> for n : 0..log2m
 	- lets say, m = 4
-	- so our code d0 d1 d2 d3 becomes, p0 p1 d0 p2 d1 d2 d3
+	- so our code d0 d1 d2 d3 becomes, p0 p1 d0 p2 d1 d2 d3   ....(1)
 	- calculating parity bit 
-		- p0 = d0 ^ d1 ^ d3 (at 1st pos, so pick 1 leave 1 ..)
+		- p0 = d0 ^ d1 ^ d3 (at 1st pos, so pick 1 leave 1 ..from eq.(1))
 		- p1 = d0 ^ d2 ^ d3 (at 2nd pos, so pick 2, 3 leave 4, 5..)
 		- p2 = d1 ^ d2 ^ d3 (at 4th pos, so pick 4, 5, 6, 7 leave 8, 9, 10, 11 ..)
+	- correction
+		- e0 = p0 ^ d0 ^ d1 ^ d3
+		- e1 = p1 ^ d0 ^ d2 ^ d3
+		- e2 = p2 ^ d1 ^ d2 ^ d3
+		- now, there is error at e2e1e0 th bit, e.g. 
+			- 001 means error at 1st bit
+			- 000 means no error
+	- now, our code can also be d0 d1 d2 d3 p0 p1 p2, as now we know what the parity is.. so we can put it anywhere, but during error correction, we got to put it back to eq. (1)
 
 
 
