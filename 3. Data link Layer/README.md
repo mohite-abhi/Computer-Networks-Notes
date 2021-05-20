@@ -219,7 +219,11 @@
 			- so, we can detect upto d - 1 no. of error bits
 	- similarly odd parity, for odd no. of 1's
 
-
+- 2d parity check
+	- m bit datawords are organized in n rows
+	- now the parity of each row is calculated and put at end of that row
+	- parity of each column is calculated and put at and of each column (creating a new row)
+	- now this whole data is sent
 
 - CRC (cyclic redundancy check)
 	- can detect
@@ -491,7 +495,7 @@
 			- wants to send 1, it is encoded as +1
 			- doesn't want to send, encoded as 0
 		- now, we multiply each encoded message with their sequence, and add all and send
-			- ![4a346405883fa880b48f8d79cb4097c1.png](../_resources/31625a8dc0d14b7b827d6faf6be62977.png)
+			- ![cdma.png](../_resources/Screenshot_2021-05-20_15-58-47.png)
 		- now, on recieving, to get data of ith station we dot product with its sequence, and add all sequence bits and divide by N.
 			- ![c2d557e14323a80eb16aa05d3ecb4793.png](../_resources/5326ed13b7a84f80914c9157888b2866.png)
 

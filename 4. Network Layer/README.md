@@ -2,45 +2,6 @@
 
 
 
-**Hardware**
-- repeaters (joins two cables and regenerates signal strength)
-- hub
-	- for star topology
-	- just forwards/broadcasts/no filtering
-	- collision possible
-- bridges
-	- used to connect two topologies(LANs)
-	- forwards, acc. to filtering mac addr. as this work in data link layer
-	- types
-		- static
-			- maintable table of mac & port of bridge
-		- dynamic
-			- if entry not in table
-				- saves source mac & port
-				- broadcasts packet to all ports
-				- now, recieving mac responses
-				- now, bridge saves destination mac
-	- collision 
-		- no collision
-			- store and forward technique	
-	- solves loop by using min spanning tree
-
-
-
-- routers
-	- used in wan (physical, datalink(mac addr), network layer(ip addr))
-	- has routing table to check, forward to address, if !found, flood all ports
-	- no collision, uses store and forward method
-
-
-- gateways
-	- located at boundary of network
-	- manages all data inflow and outflow
-	- forms passage b/w two diff. networks operating with diff. transmission protocol
-	- operates as protocol converter, providing compatibility
-	- can operate at any layer of OSI model
-
-
 
 **Introduction**
 - responsibility
@@ -72,15 +33,54 @@
 
 
 
+***
 
 
+**Hardware**
+- repeaters (joins two cables and regenerates signal strength)
+- hub
+	- for star topology
+	- just forwards/broadcasts/no filtering
+	- collision possible
+- bridges
+	- used to connect two topologies(LANs)
+	- forwards, acc. to filtering mac addr. as this work in data link layer
+	- types
+		- static
+			- maintable table of mac & port of bridge
+		- dynamic
+			- if entry not in table
+				- saves source mac & port
+				- broadcasts packet to all ports
+				- now, recieving mac responses
+				- now, bridge saves destination mac
+	- collision ?
+		- no collision
+			- store and forward technique	
+	- solves loop by using min spanning tree
+
+
+
+- routers
+	- used in wan (physical, datalink(mac addr), network layer(ip addr))
+	- has routing table to check, forward to address, if !found, flood all ports
+	- no collision, uses store and forward method
+
+
+- gateways
+	- located at boundary of network
+	- manages all data inflow and outflow
+	- forms passage b/w two diff. networks operating with diff. transmission protocol
+	- operates as protocol converter, providing compatibility
+	- can operate at any layer of OSI model
+
+***
 
 
 **IPV4 Addresses**
 - property
 	- address is of 32 bit, 8 bit * 4
-	- dotted decimal
-	- earlier first octad represented network no. (256), rest host 
+	- dotted decimal notation
 - classfull addressing ()
 	- class A
 	- class B
@@ -101,7 +101,7 @@
 	- no. of networks in Cl.A = 2<sup>7</sup> = 128
 		- 0000000 & 1111111 is not used by any network, so remaing = 126
 	- no. of host in a net in Cl.A = 2<sup>24</sup>
-		- x.0.0.0(represents network) % x.255.255.255(directed broadcast address) is reserved, so #ofhosts = 2<sup>24</sup> - 2
+		- x.0.0.0(represents network) & x.255.255.255(directed broadcast address) is reserved, so #ofhosts = 2<sup>24</sup> - 2
 	- default mask = 255.0.0.0
 		- to find network of a host, we AND it with default mask
 
@@ -162,7 +162,7 @@
 		- n is mask, no. of bits used to represent network id & host id
 			- 200.10.20.40/28
 				- here 28 bits represent block/network, 4 host
-				- 200.10.20.00101000
+				- 200.10.20.0010 1000
 					- so network id = 200.10.20.00100000 = 200.10.20.64/28
 - rules
 	- addresses should be contiguous
@@ -178,7 +178,7 @@
 	- example
 		- if we have network 200.10.20.0 (class C, 254 hosts) 
 			- 200.10.20.0 000 0000 & 200.10.20.1 000 0000 are two subnets
-				- 200.10.20.0 (subnet no.) to 200.10.20.127 (direct broadcast) (128 hosts)	subnet mask : 255.255.255.128
+				- 200.10.20.0 (subnet no.) to 200.10.20.127 (direct broadcast) (126 hosts)	subnet mask : 255.255.255.128
 				- 200.10.20.128 (subnet.no) to 200.10.20.255 (direct broadcast) (126 hosts) subnet mask : 255.255.255.128
 	- disadvantage
 		- we got to check subnet id also
@@ -231,9 +231,9 @@
 **Network Address Translation/Resolution (NAT)**
 - suppose a network has been assigned only one universal ip, 
 - now this network creates its own private netwrok and give them private ip's
-- now when a device sends packet, with its source address
+- now when a device sends packet, with its private source address
 - at the NAT router, its source address is swapped with router's universal address, but private port is not changed with router's port
-- at this time, in the NAT table an entry is made, with private ip, private port, destination address
+- at this time, in the NAT table an entry is made, with private ip, private port, destination address, port
 - now when a response comes from the destination addres, to the private port, the NAT software checks the NAT table, and forwards the packet to the device
 - ![7c26991b89c57186bd9b2f653eda5843.png](../_resources/c95322e7b0cc422aabaa5b4b0c1ea0b7.png)
 
@@ -258,7 +258,7 @@
 		- protocol length (4 here)
 		- operations
 			- req - 1
-			- rep - 2
+			- res - 2
 		- sender hw addr
 		- sender prot. addr
 		- target hw addr
@@ -269,7 +269,7 @@
 
 
 **Packet forwarding**
-- there is forwarding/routing table in routers, where they store network address with  mask, with longest mask first(more specific addresses), next-hop ip, and interface
+- there is forwarding/routing table in routers, where they store network address with  mask, with longest mask first(more specific addresses), next-hop address, and interface no
 - now, when a packet comes with a dest address, it is matched with the network address in the routingg table, if it matahes, then it is forwarded in the appropriate interface, else if no match, then it is forwarded to a default port where the routing table might know the address
 - we reduce routing table size by 
 	- address aggregation
@@ -297,17 +297,18 @@
 	- it is an envolop for an ipv packet
 	- ![ee94a349dce84225338ac8aa467bbff3.png](../_resources/8915f877a70f4d90bab66bb5559d181e.png)
 	- packet size : 64 KB
-		- there are 12 important fields and 1 optional fields, with 20-60 bytes
+		- header
+			- there are 12 important fields and 1 optional fields, with 20-60 bytes
 		- payload of can aquire remaining address
 	- fields
 		- version (4 bit)
 			- 0100 (4)
 		- HLEN (4 bit)
 			- header length (to detect payload)
-			- the content is x 4 to get real header size(so value 0,1,2,3,4 can not be because min. size is 5*4 = 20)
+			- value * 4 to get real header size(so values can't be 0,1,2,3,4 because min. size is 5*4 = 20)
 		- Service Type (8 bit)  or dscp
 			- type of service (TOS)
-				- p p p d t r c o (differentiated services code point (dscp))
+				- p p p d t r c 0 (differentiated services code point (dscp))
 					- p : precedence
 					- d : delay (if want no delay, 1)
 					- t : throughput (to max throughput, 1)
@@ -320,8 +321,8 @@
 		- identification (16 bit)
 		- flag (3 bit)
 		- fragment offset (13 bit)
-		- TTL (time to live) (8 bit) (max 255 nodes)
-		- protocol (8 bit) (mention if higher level protocol)
+		- TTL (time to live) (8 bit) (max 255 hops)
+		- protocol (8 bit) (mention if any higher level protocol)
 		- header checksum
 		- Source IP address (32 bit)
 		- Destination ip address (32)
@@ -366,7 +367,10 @@
 			- code (reason for message)
 			- rest is specific
 		- error message
-			- dont send if/for 1. to multicast 2. error in another ICMP packet 3, for non first fragment
+			- dont send if/for 
+				1. to multicast 
+				2. error in another ICMP packet 
+				3. for non first fragment
 			- data section contains ip header of original datagram + first 8 bytes of data(UDP & TCP error handling)
 		- query message
 			- echo used to check liveliness
@@ -438,8 +442,10 @@
 
 **Routing**
 - what
-	- the formation of routing tables for the routing of packets from the source router to the dest router, and throughh the in between routers
-	- we use heirarchial routing only for this
+	- the formation of routing tables at routers 
+		- for the forwarding of packets 
+		- from the source router to the dest router
+	- we use only heirarchial routing for this
 	- we use least cost routing, and create least cost tree, similar to a min. spanning tree
 	- so we dynamically create the routing tables
 - Routing Algorithms
@@ -454,7 +460,8 @@
 
 	- Distance Vector Routing (DVR)
 		- all router has a routing table with entries of all dest. routers, including itself
-		- now, we fill distance of our neighbouring routers, and take entries of of their neighbour from their tables
+			- now, we fill distance of our neighbouring routers at step 1
+			- at all next steps, we take entries of of other's neighbour from their tables
 		- step 1
 			- ![cf3d13d1f1dffdc86c2abb934e9364b8.png](../_resources/0cd4741d486240ddb33ed55d6ef91ef8.png)
 		- step  2 (for N1)
@@ -467,10 +474,11 @@
 				- ![1ca64790a7005b99c5c38e2a2394caf7.png](../_resources/535774627c7f475ab14a77507622f55f.png)
 				- solution	
 					- split horizon
-						- B knows that best path of X is thru A, so it thinks no need to send info back to A, but if A for long doesn't hear about X, it thinks that X must be gone, so it removes it
+						- B knows that best path of X is thru A, so it thinks no need to send info back to A
+						- but if A for long doesn't hear about X, it thinks that X must be gone, so it removes it
 					- Poison Reverse
 						- here B sends the info but tells that it should not be used, so A doesn't and when A shares with B, now B also has new value
-			- three node loop, these solutions might not work for three node 
+			- three node loop, these solutions might not work for three node loop
 				- ![4b388245456cf20169a4b2e6e560501a.png](../_resources/4a3f31c19d8e44998c1cdcde14c4ac72.png)
 
 
@@ -486,8 +494,8 @@
 	- Path Vector Routing (PVR)
 		- it can have its packets route using a set of policies, that too efficiently, as not based on least cost
 		- it is used to route packets bw ISPs
-		- here first, second and third steps are same as LSR, though here we call the packets Path Vectors
-		- now, when everyone has all the path vectors, it creates its own spanning tree using the best(path(x,y), x+path(v,y)), where best chooses the one which best fits its own policy
+		- here first, second and third steps are same as LSR, though here we call the LSP's as Path Vectors
+		- now, when everyone has all the path vectors, it creates its own spanning tree using the best(path(x,y), x+path(v,y)), where best chooses the one which best fits given policy
 		- here, all routers will have different copy of spanning trees, acc. to their policies
 		- ![e7c90be61c5a1d69ce9f36a14261e59c.png](../_resources/f972b4f2c0564d3489ae5eb4c29d3a05.png)
 
@@ -513,7 +521,7 @@
 	- Open Shortest Path First (OSPF)
 		- based on LSR
 		- calculates from source router to destination router
-		- cost is hops of source to destination, btu we can also assign throughput, round trip time, reliability etc
+		- cost is hops of source to destination, but we can also assign throughput, round trip time, reliability etc
 		- rest all we can use LSR, djikstra
 		- routing table same as RIP
 
