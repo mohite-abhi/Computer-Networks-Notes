@@ -335,7 +335,7 @@
 - IPv4 fragmentation
 	-  in header
 		-  Identification bit (16 bit)
-			-  fragment no.
+			-  all fragments have same id. no.
 		-  flag (3 bits)
 			-  res. (not used)
 			-  DF (do not fragment, 1 if should not fragment)
@@ -527,6 +527,8 @@
 
 	- Border Gateway Protocol ver.4 (BGP4)
 		- based on PVR
+
+
 
 
 
