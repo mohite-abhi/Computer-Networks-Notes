@@ -2,7 +2,7 @@
 
 **Introduction**
 - responsibilities
-	- uses the functionalities/proptocols provided by Transport Layer (TCP/IP), and provides specialized services to the user like mail transfer, file transfer, hypertext transfer and thousands others 
+	- uses the functionalities/proptocols provided by Transport Layer & Network Layer (TCP/IP), and provides specialized services to the user like mail transfer, file transfer, hypertext transfer and thousands others 
 	- types of protocols
 		- standard(like ftp, http)
 		- non standard (anybody can create and use privately)
@@ -21,7 +21,7 @@
 		- server processes provide a specific type of service
 	- client process
 		- the client process is started when client needs to recieve service
-		- the client process can request service from any of the server provessesaa
+		- the client process can request service from any of the server provessess
 
 	- examples
 		- WWW, e-mail etc.
@@ -49,7 +49,7 @@
 - Application Programming Interface (API)
 	- what
 		- the OS manufacturer should build first four layers of TCP/IP suite in OS
-		- and he should also provide with easy set of instructions on how to use the services of TCP/IP layers
+		- and it should also provide easy set of instructions to use the services of TCP/IP layers
 			- like to open connection, send/recieve data from other end, close connection
 		- thses set of instruction are known as API
 	- types of API's designed for communication
@@ -63,24 +63,24 @@
 		- socket?
 			- socket is supposed to be like a sink, that can be accessed like a file, by any programming language
 			- so, in a client/server paradigm, communication takes place b/w two sockets
-				- so they think that they are just communicating with socket
+				- so computer think that it is just communicating with socket
 		- how?
-			- if we create two sockets at each 
+			- if we create sockets at each 
 			- and define source and destination socket address correctly 
 			- we can use available instructions to send and recieve data
-				- how? we don't need to care,TCP/Ip does
+				- how? we don't need to know,TCP/Ip takes care of it
 		- socket address?
 			- the one, that underlying TCP/IP protocol needs to reach application at the other end..
-			- yes IP address and port number, came to be known as socket address, used by socket
+			- yes IP address and port number, is together known as socket address, used by socket
 				- ![c3e531028028c8828d459882f91a0a94.png](../_resources/3312ff7cf65e4469823516751392b145.png)
 
 			- finding socket address
 				- server site
-					- the server knows its local IP and local port is provided by OS, unless it is a standart process
+					- the server knows its local IP and local port is provided by OS, unless it is a standard process
 					- the server knows the IP and port of client when it connects with it
 				- client site
 					- the client knows its IP, while OS provides port no. to it (one of non standard)
-					- the client generally knows port no. as it is one of standard, to knon IP, it types just the identifiers(URLs), and the DNS gives it the IP for it
+					- the client generally knows port no. of server as it is one of standard. To knon IP, it types just the identifiers(URLs), and the DNS gives the IP to it
 
 
 
@@ -89,8 +89,8 @@
 
 **Domain Name System (DNS)**
 - what
-	- it acts like a phone book, that matches b/w IP address and domain name
-	- we can have a dynamic IP, as we can change it to whatever we want
+	- it acts like a phone book, that matches b/w domain name (url) and IP address 
+	- we can have a dynamic IP, as we can change it to whatever we want, but domain name stays same
 - server
 	- it is a heirarchial server
 	- root server (it has info about domain servers)(various root servers are there around the world, a DNS client contacts the one closer to it)
@@ -100,9 +100,9 @@
 	- the machine uses the DNS client found on the computer
 		- although sometimes the machine first asks DNS resolver for the IP, which might have cached it
 		- if not, then the resolver goes and fetches the IP, and caches it and returns to the machine
-	- it sends a request to teh DNS server whose address is already in the computer
+	- it sends a request to the DNS server whose address is already in the computer
 	- the DNS server finds the IP for the given domain name and returns it
-	- not the machine gets the IP from the DNS client, and can use socket to communicate with another application layer
+	- now the machine gets the IP from the DNS client, and can use socket to communicate with another application layer
 
 
 
@@ -145,7 +145,7 @@
 		- encrypts packets
 	- RIP (520, UDP)
 		- routing information protocol
-		- DVR (distance vector protocol)
+		- DVR (distance vector routing protocol)
 
 
 
@@ -205,7 +205,7 @@
 	- it is repository of information in which documents called webpages are stored
 	- this repository is 
 		- distributed
-			- each web server in the world can add it's own web page and announceit to all internet users
+			- each web server in the world can add it's own web page and announce it to all internet users
 		- linked
 			- clicking on various hypertext takes us on another page
 	- it is a distributed client server service, in which client uses web browser to access services, using URL (uniform resource locator)

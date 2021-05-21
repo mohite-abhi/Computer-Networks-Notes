@@ -421,6 +421,7 @@
 	- collision avaoidance
 	- used in wlan(wifi)
 	- can't detect double energy as energy is lost in air, so can't detect with CSMA / CD
+	- senses carrier virtually with NAV (network allocation vector)
 	- ![bd276e1ed4e0f670f57054988b059824.png](../_resources/97eafcfba23c41458304c53bc6b76db0.png)
 
 

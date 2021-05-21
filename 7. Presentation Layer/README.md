@@ -9,7 +9,7 @@
 			- B uses EBCDIC
 		- so it is responsibility to translate one format to another
 	- encryption/decryption
-		- as security is important, and packets be stolen by someone
+		- as security is important, and packets can be stolen by someone
 		- before sending, presentation layer can encrypt our data
 			- i.e. convert it into an incomprehensible format while retaining the knowledge in it
 			- it can be decrypted with the help of a key that is shared by only the end machines

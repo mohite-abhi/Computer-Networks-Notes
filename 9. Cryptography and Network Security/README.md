@@ -25,7 +25,7 @@
 		- modification
 			- modifying the intercepted data for benifit or just for causing harm
 		- masquerading(spoofing)
-			- impersonating as someoen else (client or server) for data theft/other benifit
+			- impersonating as someone else (client or server) for data theft/other benifit
 		- replaying
 			- obtaining a copy of message and resending it again
 			- e.g. replaying a transaction
@@ -157,7 +157,7 @@
 
 **Other Acpects of Security**
 - Message Integrity
-	- to protect document from undetected undetected change, it is passed through a hash function and a digest is created.
+	- to protect document from undetected change, it is passed through a hash function and a digest is created.
 	- now if changed message is passed through hash function, then the digest is different from the original digest
 	- so, now the original digest needs to  be preserved from any change
 	- eg. SHA (seecure hash algorithm)
@@ -174,7 +174,7 @@
 		- if MAC's are same then integrity of message is maintained
 	- method 2 (RSA Digital Signature Scheme)
 		- sender has a private key which he uses to create a digital signature using the message and the signing algo
-		- and all the recievers have a public key which they use to check if the message is authentic using verigying algo
+		- and all the recievers have a public key which they use to check if the message is authentic using verifying algo
 
 
 - Entity Authentication (User authentication)

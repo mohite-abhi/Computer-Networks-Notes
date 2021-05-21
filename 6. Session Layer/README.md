@@ -6,8 +6,10 @@
 		- when user requests server, session layer authenticates the user
 		- server creates a session for the user and provides authorization (priviledges) 
 		- session restoration (checkpoint) using session beans, if server provides
-		- web conference, synchronization audio and video
-		- session layer is not provided by os, itis sole purpose of server
+		- applications
+			- web conference
+			- synchronizating audio and video
+		- session layer is not provided by os, it is sole purpose of server
 
 
 
