@@ -4,6 +4,10 @@ Contains notes of Data Communication and Data Networking, prepared for semester 
 Note : pull requests are most welcome.
 ```
 
+https://drive.google.com/folderview?id=1TnhPgrVEuwC1djZD8_as5Z_YX0uLZcF9
+
+
+
 **Source of Learning :**
 - Dr. Srichandan Sobhanayak https://scholar.google.co.in/citations?user=Mu5kdlwAAAAJ&hl=en
 - Gate Smashers https://www.youtube.com/playlist?list=PLxCzCOWd7aiGFBD2-2joCpWOLUrDLvVV_
