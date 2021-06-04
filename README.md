@@ -4,7 +4,7 @@ Contains notes of Data Communication and Data Networking, prepared for semester 
 Note : pull requests are most welcome.
 ```
 
-https://drive.google.com/folderview?id=1TnhPgrVEuwC1djZD8_as5Z_YX0uLZcF9
+
 
 
 
